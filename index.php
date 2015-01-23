@@ -30,10 +30,15 @@ $httpClient = Zend_Gdata_ClientLogin::getHttpClient(
 $yt = new Zend_Gdata_YouTube($httpClient, $applicationId, $clientId, $developerKey);
 ?>
 <?php
+// Récupération du token
+$tokenHandlerUrl = 'http://gdata.youtube.com/action/GetUploadToken';
+$tokenArray = $yt->getFormUploadToken($myVideoEntry, $tokenHandlerUrl);
+$tokenValue = $tokenArray['token'];
+$postUrl = $tokenArray['url'];
 // Page sur laquelle sera renvoyé l'utilisateur après la validation 
 // du formulaire (URL de retour)
-$nextUrl = 'http://gdata.youtube.com/action/GetUploadToken';
-$postUrl = 'http://youtube.com/action/GetUploadToken';
+$nextUrl = 'http://www.monsiteweb.com/upload_video_ok.php';
+
 // Affichage du formulaire
 $form = '<form action="'. htmlspecialchars($postUrl, ENT_QUOTES) .'?nexturl='
 . urlencode($nextUrl) . ' method="post" enctype="multipart/formdata">
